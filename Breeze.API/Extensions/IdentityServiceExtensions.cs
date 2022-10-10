@@ -2,7 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace Breeze.API.Extensions
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class IdentityServiceExtensions
     {

@@ -1,5 +1,7 @@
 
-using Breeze.API.Extensions;
+
+
+using Microsoft.Extensions.DependencyInjections;
 
 namespace API
 {
@@ -15,14 +17,11 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
 
-
             services.AddApplicationService(_configuration);
 
             services.AddControllers().AddNewtonsoftJson();
 
             services.AddIdentityService(_configuration);
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

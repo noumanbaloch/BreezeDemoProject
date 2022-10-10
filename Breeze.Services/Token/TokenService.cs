@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Breeze.Models.Entities;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Breeze.Services.Token
 {
+
     public class TokenService : ITokenService
     {
         private readonly SymmetricSecurityKey _key;
@@ -19,12 +21,12 @@ namespace Breeze.Services.Token
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["TokenKey"]));
         }
 
-        public string CreateToken()
+        public string CreateToken(UserEntity user)
         {
             var claims = new List<Claim>()
             {
-                new Claim(JwtRegisteredClaimNames.NameId, "user.UserId"),
-                new Claim(JwtRegisteredClaimNames.UniqueName, "user.UserName")
+                new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName)
             };
 
             var cred = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);

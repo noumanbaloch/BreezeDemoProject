@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Breeze.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace Breeze.Services.Token
 {
     public interface ITokenService
     {
-        string CreateToken();
+        string CreateToken(UserEntity user);
     }
 }

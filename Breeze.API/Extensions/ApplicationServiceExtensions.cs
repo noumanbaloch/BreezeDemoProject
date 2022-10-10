@@ -1,14 +1,22 @@
-﻿using Breeze.Services.Token;
+﻿using Breeze.DbCore.Context;
+using Breeze.Services.Token;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
-namespace Breeze.API.Extensions
+namespace Microsoft.Extensions.DependencyInjections
 {
     public static class ApplicationServiceExtensions
     {
         public static IServiceCollection AddApplicationService(this IServiceCollection services, IConfiguration configuration)
         {
-
             services.AddScoped<ITokenService, TokenService>();
+
+            services.AddDbContext<DatabaseContext>(options =>
+            {
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+            });
+
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPIv6", Version = "v1" });
