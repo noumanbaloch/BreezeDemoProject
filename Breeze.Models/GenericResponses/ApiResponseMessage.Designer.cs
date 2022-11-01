@@ -22,7 +22,7 @@ namespace Breeze.Models.GenericResponses {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ApiResponseMessage {
+    public class ApiResponseMessage {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Breeze.Models.GenericResponses {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Breeze.Models.GenericResponses.ApiResponseMessage", typeof(ApiResponseMessage).Assembly);
@@ -51,7 +51,7 @@ namespace Breeze.Models.GenericResponses {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Breeze.Models.GenericResponses {
         /// <summary>
         ///   Looks up a localized string similar to Passowrd is invalid..
         /// </summary>
-        internal static string InvalidPassword {
+        public static string InvalidPassword {
             get {
                 return ResourceManager.GetString("InvalidPassword", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Breeze.Models.GenericResponses {
         /// <summary>
         ///   Looks up a localized string similar to Username is invalid..
         /// </summary>
-        internal static string InvalidUserName {
+        public static string InvalidUserName {
             get {
                 return ResourceManager.GetString("InvalidUserName", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace Breeze.Models.GenericResponses {
         /// <summary>
         ///   Looks up a localized string similar to Record already exist..
         /// </summary>
-        internal static string RecordAlreadyExist {
+        public static string RecordAlreadyExist {
             get {
                 return ResourceManager.GetString("RecordAlreadyExist", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace Breeze.Models.GenericResponses {
         /// <summary>
         ///   Looks up a localized string similar to Record saved successfully..
         /// </summary>
-        internal static string RecordSavedSuccessfully {
+        public static string RecordSavedSuccessfully {
             get {
                 return ResourceManager.GetString("RecordSavedSuccessfully", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace Breeze.Models.GenericResponses {
         /// <summary>
         ///   Looks up a localized string similar to Successful login..
         /// </summary>
-        internal static string SuccessfullLogin {
+        public static string SuccessfullLogin {
             get {
                 return ResourceManager.GetString("SuccessfullLogin", resourceCulture);
             }

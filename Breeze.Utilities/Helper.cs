@@ -12,5 +12,15 @@ namespace Breeze.Utilities
         {
             return DateTime.Now;
         }
+
+        public static bool IsNullOrEmpty<T>(T obj)
+        {
+            return obj is null;
+        }
+    }
+
+    public static class StoreProcedureNames
+    {
+        public static string GetUserStoreProcedure = "GJS_PROC_Fetch_User";
     }
 }
