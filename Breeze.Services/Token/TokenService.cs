@@ -15,10 +15,12 @@ namespace Breeze.Services.Token
     public class TokenService : ITokenService
     {
         private readonly SymmetricSecurityKey _key;
+        private readonly IConfiguration _configuration;
 
         public TokenService(IConfiguration configuration)
         {
-            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["TokenKey"]));
+            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Authentication:SecretKey"]));
+            _configuration = configuration;
         }
 
         public string CreateToken(UserEntity user)
@@ -29,27 +31,16 @@ namespace Breeze.Services.Token
                 new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName)
             };
 
-            var cred = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
+            var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
 
-            var tokenDescripter = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(7),
-                SigningCredentials = cred
-            };
+            var token = new JwtSecurityToken(
+                   issuer: _configuration["Authentication:Issuer"],
+                   audience: _configuration["Authentication:Audience"],
+                   claims: claims,
+                   expires: DateTime.Now.AddDays(30),
+                   signingCredentials: creds);
 
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-
-            var token = tokenHandler.CreateToken(tokenDescripter);
-
-            return tokenHandler.WriteToken(token);
-
-
-
-
-
-
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }
