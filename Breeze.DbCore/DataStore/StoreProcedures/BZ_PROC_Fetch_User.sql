@@ -1,6 +1,6 @@
-﻿USE [GulfJobsDB]
+﻿USE [BreezeDB]
 GO
-/****** Object:  StoredProcedure [dbo].[GJS_PROC_Fetch_User]    Script Date: 10/29/2022 9:12:50 PM ******/
+/****** Object:  StoredProcedure [dbo].[BZ_PROC_Fetch_User]    Script Date: 10/29/2022 9:12:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10,7 +10,7 @@ GO
 -- Create date: <08/18/2022>
 -- Description:	<Fetch User Info>
 -- =============================================
-ALTER PROCEDURE [dbo].[GJS_PROC_Fetch_User]
+ALTER PROCEDURE [dbo].[BZ_PROC_Fetch_User]
 	-- Add the parameters for the stored procedure here
 	@Username varchar(50)
 AS
