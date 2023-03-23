@@ -2,21 +2,17 @@
 using Breeze.DbCore.UnitOfWork;
 using Breeze.Models.Dtos.User.Request;
 using Breeze.Models.Dtos.User.Response;
+using Breeze.Models.Dtos.User.SP;
 using Breeze.Models.Entities;
 using Breeze.Models.Enums;
 using Breeze.Models.GenericResponses;
 using Breeze.Services.Token;
 using Breeze.Utilities;
 using Dapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Data;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
-using System.Data;
-using Breeze.Models.Dtos.User.SP;
-using System.Linq.Expressions;
+using static Breeze.Models.Constans.Constant;
 
 namespace Breeze.Services.Account
 {
@@ -25,8 +21,6 @@ namespace Breeze.Services.Account
         private readonly IUnitOfWork _unitOfWork;
         private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
-
-        private const string SystemUser = "System Generated";
         public AccountService(IUnitOfWork unitOfWork, ITokenService tokenService, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
@@ -47,9 +41,9 @@ namespace Breeze.Services.Account
 
             user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(requestDto.Password));
             user.PasswordSalt = hmac.Key;
-            user.CreatedBy = SystemUser;
+            user.CreatedBy = Username.SystemGenerated;
             user.CreatedDate = Helper.GetCurrentDate();
-            user.ModifiedBy = SystemUser;
+            user.ModifiedBy = Username.SystemGenerated;
 
             var userRepo = _unitOfWork.GetRepository<UserEntity>();
 
@@ -102,7 +96,7 @@ namespace Breeze.Services.Account
         {
             DynamicParameters parameters = new();
             parameters.Add("@Username", userName, DbType.String, direction: ParameterDirection.Input);
-            var result = _unitOfWork.DapperSpSingleWithParams<UserSPDto>("exec " + StoreProcedureNames.GetUserStoreProcedure + " @Username", parameters);
+            var result = _unitOfWork.DapperSpSingleWithParams<UserSPDto>("exec " + StoreProcedureName.GetUserStoreProcedure + " @Username", parameters);
             return result != null;
         }
 
