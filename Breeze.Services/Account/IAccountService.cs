@@ -1,11 +1,6 @@
 ﻿using Breeze.Models.Dtos.User.Request;
 using Breeze.Models.Dtos.User.Response;
 using Breeze.Models.GenericResponses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Breeze.Services.Account
 {

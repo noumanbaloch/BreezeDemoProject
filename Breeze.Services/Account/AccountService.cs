@@ -2,21 +2,16 @@
 using Breeze.DbCore.UnitOfWork;
 using Breeze.Models.Dtos.User.Request;
 using Breeze.Models.Dtos.User.Response;
+using Breeze.Models.Dtos.User.SP;
 using Breeze.Models.Entities;
 using Breeze.Models.Enums;
 using Breeze.Models.GenericResponses;
 using Breeze.Services.Token;
 using Breeze.Utilities;
 using Dapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Data;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
-using System.Data;
-using Breeze.Models.Dtos.User.SP;
-using System.Linq.Expressions;
 
 namespace Breeze.Services.Account
 {
