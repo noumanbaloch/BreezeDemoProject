@@ -18,9 +18,4 @@ namespace Breeze.Utilities
             return obj is null;
         }
     }
-
-    public static class StoreProcedureNames
-    {
-        public static string GetUserStoreProcedure = "GJS_PROC_Fetch_User";
-    }
 }

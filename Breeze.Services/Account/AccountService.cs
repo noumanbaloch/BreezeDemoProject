@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Breeze.DbCore.UnitOfWork;
+using Breeze.Models.Constans;
 using Breeze.Models.Dtos.User.Request;
 using Breeze.Models.Dtos.User.Response;
 using Breeze.Models.Dtos.User.SP;
@@ -20,8 +21,6 @@ namespace Breeze.Services.Account
         private readonly IUnitOfWork _unitOfWork;
         private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
-
-        private const string SystemUser = "System Generated";
         public AccountService(IUnitOfWork unitOfWork, ITokenService tokenService, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
@@ -42,9 +41,9 @@ namespace Breeze.Services.Account
 
             user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(requestDto.Password));
             user.PasswordSalt = hmac.Key;
-            user.CreatedBy = SystemUser;
+            user.CreatedBy = Username.SystemGenerated;
             user.CreatedDate = Helper.GetCurrentDate();
-            user.ModifiedBy = SystemUser;
+            user.ModifiedBy = Username.SystemGenerated;
 
             var userRepo = _unitOfWork.GetRepository<UserEntity>();
 
@@ -97,7 +96,7 @@ namespace Breeze.Services.Account
         {
             DynamicParameters parameters = new();
             parameters.Add("@Username", userName, DbType.String, direction: ParameterDirection.Input);
-            var result = _unitOfWork.DapperSpSingleWithParams<UserSPDto>("exec " + StoreProcedureNames.GetUserStoreProcedure + " @Username", parameters);
+            var result = _unitOfWork.DapperSpSingleWithParams<UserSPDto>("exec " + StoreProcedureName.GetUserStoreProcedure + " @Username", parameters);
             return result != null;
         }
 
