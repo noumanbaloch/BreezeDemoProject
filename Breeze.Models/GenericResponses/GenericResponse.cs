@@ -1,4 +1,4 @@
-﻿using Breeze.Models.Enums;
+﻿using Breeze.Models.Constants;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Breeze.Models.Enums
+namespace Breeze.Models.Constants
 {
     public enum ApiStatusCode
     {
@@ -16,7 +16,5 @@ namespace Breeze.Models.Enums
         // 200 series for success
         RecordSavedSuccessfully = 200,
         SuccessfullLogin = 201
-
-
     }
 }

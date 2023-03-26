@@ -14,8 +14,5 @@ namespace Breeze.Models.Entities
         public string ModifiedBy { get; set; }
         public DateTime ModifiedDate { get; set; } = Helper.GetCurrentDate();
         public bool Deleted { get; set; }
-
-
-
     }
 }

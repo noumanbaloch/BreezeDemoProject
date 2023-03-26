@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
 using Breeze.DbCore.UnitOfWork;
-using Breeze.Models.Constans;
+using Breeze.Models.Constants;
 using Breeze.Models.Dtos.User.Request;
 using Breeze.Models.Dtos.User.Response;
 using Breeze.Models.Dtos.User.SP;
 using Breeze.Models.Entities;
-using Breeze.Models.Enums;
 using Breeze.Models.GenericResponses;
 using Breeze.Services.Token;
 using Breeze.Utilities;
