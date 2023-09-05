@@ -1,3 +1,4 @@
+using Breeze.API.Extensions;
 using Microsoft.Extensions.DependencyInjections;
 
 namespace API
@@ -14,11 +15,26 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddApplicationService(_configuration);
+            services
+                .AddApplicationService(_configuration)
+                .AddSwaggerConfiguration()
+                .AddIdentityService(_configuration)
+                .AddControllers()
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                }); ;
 
-            services.AddControllers().AddNewtonsoftJson();
-
-            services.AddIdentityService(_configuration);
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                               .AllowAnyHeader()
+                               .AllowAnyMethod();
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

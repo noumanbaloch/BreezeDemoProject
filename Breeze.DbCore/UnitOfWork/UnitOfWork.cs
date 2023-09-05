@@ -15,7 +15,7 @@ namespace Breeze.DbCore.UnitOfWork
         public UnitOfWork(IDatabaseContext dbContext, DatabaseContext dbConnectionContext)
         {
             _dbContext = dbContext;
-            _connectionString = dbConnectionContext.Database.GetConnectionString();
+            _connectionString = dbConnectionContext.Database.GetConnectionString()!;
         }
 
         public Dictionary<Type, object> _repos = new();
@@ -70,7 +70,7 @@ namespace Breeze.DbCore.UnitOfWork
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                return connection.Query<TEntity>(spName, parameters, commandTimeout: 60).FirstOrDefault();
+                return connection.Query<TEntity>(spName, parameters, commandTimeout: 60).FirstOrDefault()!;
             }
         }
 
@@ -79,7 +79,7 @@ namespace Breeze.DbCore.UnitOfWork
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                return connection.Query<TEntity>(spName, commandTimeout: 60).FirstOrDefault();
+                return connection.Query<TEntity>(spName, commandTimeout: 60).FirstOrDefault()!;
             }
         }
 

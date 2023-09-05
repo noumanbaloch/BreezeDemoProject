@@ -14,19 +14,12 @@ namespace Breeze.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterUserRequestDto requestDto)
-        {
-            return Ok(await _accountService.RegisterUser(requestDto));
-        }
+        public async Task<IActionResult> Register(RegisterUserRequestDto requestDto) => 
+            Ok(await _accountService.RegisterUser(requestDto));
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginUserRequestDto requestDto)
-        {
-            var result = await _accountService.LoginUser(requestDto);
-
-            return Ok(result);
-        }
-
+        public async Task<IActionResult> Login(LoginUserRequestDto requestDto) => 
+            Ok(await _accountService.LoginUser(requestDto));
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Breeze.DbCore.UnitOfWork;
+using Breeze.Models.Constans;
 using Breeze.Models.Constants;
 using Breeze.Models.Dtos.User.Request;
 using Breeze.Models.Dtos.User.Response;
@@ -31,7 +32,7 @@ namespace Breeze.Services.Account
         {
             if (UserExist(requestDto.UserName))
             {
-                return GenericResponse<UserResponseDto>.Failure(ApiResponseMessage.RecordAlreadyExist, ApiStatusCode.RecordAlreadyExist);
+                return GenericResponse<UserResponseDto>.Failure(ApiResponseMessages.RECORD_ALREADY_EXIST, ApiStatusCodes.RECORD_ALREADY_EXIST);
             }
 
             var user = _mapper.Map<UserEntity>(requestDto);
@@ -56,7 +57,7 @@ namespace Breeze.Services.Account
                 Token = _tokenService.CreateToken(user)
             };
 
-            return GenericResponse<UserResponseDto>.Success(responseDto, ApiResponseMessage.RecordSavedSuccessfully, ApiStatusCode.RecordSavedSuccessfully);
+            return GenericResponse<UserResponseDto>.Success(responseDto, ApiResponseMessages.RECORD_SAVED_SUCCESSFULLY, ApiStatusCodes.RECORD_SAVED_SUCCESSFULLY);
 
         }
 
@@ -68,7 +69,7 @@ namespace Breeze.Services.Account
 
             if (Helper.IsNullOrEmpty(user))
             {
-                return GenericResponse<UserResponseDto>.Failure(ApiResponseMessage.InvalidUserName, ApiStatusCode.InvalidUserName);
+                return GenericResponse<UserResponseDto>.Failure(ApiResponseMessages.INVALID_USERNAME_OR_PASSWORD, ApiStatusCodes.INVALID_USERNAME_OR_PASSWORD);
             }
 
             using var hmac = new HMACSHA512(user.PasswordSalt);
@@ -78,7 +79,7 @@ namespace Breeze.Services.Account
             {
                 if (computeHash[i] != user.PasswordHash[i])
                 {
-                    return GenericResponse<UserResponseDto>.Failure(ApiResponseMessage.InvalidPassword, ApiStatusCode.InvalidPassword);
+                    return GenericResponse<UserResponseDto>.Failure(ApiResponseMessages.INVALID_USERNAME_OR_PASSWORD, ApiStatusCodes.INVALID_USERNAME_OR_PASSWORD);
                 }
             }
 
@@ -88,7 +89,7 @@ namespace Breeze.Services.Account
                 Token = _tokenService.CreateToken(user)
             };
 
-             return GenericResponse<UserResponseDto>.Success(response, ApiResponseMessage.SuccessfullLogin, ApiStatusCode.SuccessfullLogin);
+             return GenericResponse<UserResponseDto>.Success(response, ApiResponseMessages.SUCCESSFULLY_LOGIN, ApiStatusCodes.SUCCESSFULLY_LOGIN);
         }
 
         private bool UserExist(string userName)
