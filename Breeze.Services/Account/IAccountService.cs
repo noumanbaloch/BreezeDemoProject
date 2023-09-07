@@ -6,8 +6,9 @@ namespace Breeze.Services.Account
 {
     public interface IAccountService
     {
-        Task<GenericResponse<UserResponseDto>> RegisterUser(RegisterUserRequestDto requestDto);
-        Task<GenericResponse<UserResponseDto>> LoginUser(LoginUserRequestDto requestDto);
+        bool UserExist(string username);
+        Task<UserResponseDto> RegisterUser(RegisterUserRequestDto requestDto);
+        Task<UserResponseDto?> LoginUser(LoginUserRequestDto requestDto);
 
     }
 }

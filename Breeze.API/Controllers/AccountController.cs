@@ -20,6 +20,5 @@ namespace Breeze.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginUserRequestDto requestDto) => 
             Ok(await _accountService.LoginUser(requestDto));
-
     }
 }

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Breeze.Models.Dtos.User.Request;
 using Breeze.Models.Entities;
-using Breeze.Utilities;
 
 namespace Breeze.API.AutoMappingProfile
 {

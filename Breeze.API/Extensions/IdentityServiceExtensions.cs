@@ -17,9 +17,7 @@ namespace Microsoft.Extensions.DependencyInjection
                     ValidIssuer = configuration["Authentication:Issuer"],
                     ValidAudience = configuration["Authentication:Audience"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Authentication:SecretKey"])),
-                   
                 });
-
 
             return services;
         }

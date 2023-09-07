@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
 using Breeze.DbCore.UnitOfWork;
 using Breeze.Models.Constans;
-using Breeze.Models.Constants;
 using Breeze.Models.Dtos.User.Request;
 using Breeze.Models.Dtos.User.Response;
 using Breeze.Models.Dtos.User.SP;
 using Breeze.Models.Entities;
-using Breeze.Models.GenericResponses;
 using Breeze.Services.Token;
 using Breeze.Utilities;
 using Dapper;
@@ -28,13 +26,8 @@ namespace Breeze.Services.Account
             _mapper = mapper;
         }
 
-        public async Task<GenericResponse<UserResponseDto>> RegisterUser(RegisterUserRequestDto requestDto)
+        public async Task<UserResponseDto> RegisterUser(RegisterUserRequestDto requestDto)
         {
-            if (UserExist(requestDto.UserName))
-            {
-                return GenericResponse<UserResponseDto>.Failure(ApiResponseMessages.RECORD_ALREADY_EXIST, ApiStatusCodes.RECORD_ALREADY_EXIST);
-            }
-
             var user = _mapper.Map<UserEntity>(requestDto);
 
             using var hmac = new HMACSHA512();
@@ -51,17 +44,15 @@ namespace Breeze.Services.Account
 
             await _unitOfWork.CommitAsync();
 
-            var responseDto = new UserResponseDto()
+            return new UserResponseDto()
             {
                 UserName = user.UserName,
                 Token = _tokenService.CreateToken(user)
             };
 
-            return GenericResponse<UserResponseDto>.Success(responseDto, ApiResponseMessages.RECORD_SAVED_SUCCESSFULLY, ApiStatusCodes.RECORD_SAVED_SUCCESSFULLY);
-
         }
 
-        public async Task<GenericResponse<UserResponseDto>> LoginUser(LoginUserRequestDto requestDto)
+        public async Task<UserResponseDto?> LoginUser(LoginUserRequestDto requestDto)
         {
             var user = await _unitOfWork.GetRepository<UserEntity>().FindByFirstOrDefaultAsync
                 (x => x.UserName.ToLower() == requestDto.UserName && x.Deleted == false);
@@ -69,7 +60,7 @@ namespace Breeze.Services.Account
 
             if (Helper.IsNullOrEmpty(user))
             {
-                return GenericResponse<UserResponseDto>.Failure(ApiResponseMessages.INVALID_USERNAME_OR_PASSWORD, ApiStatusCodes.INVALID_USERNAME_OR_PASSWORD);
+                return null;
             }
 
             using var hmac = new HMACSHA512(user.PasswordSalt);
@@ -79,7 +70,7 @@ namespace Breeze.Services.Account
             {
                 if (computeHash[i] != user.PasswordHash[i])
                 {
-                    return GenericResponse<UserResponseDto>.Failure(ApiResponseMessages.INVALID_USERNAME_OR_PASSWORD, ApiStatusCodes.INVALID_USERNAME_OR_PASSWORD);
+                    return null;
                 }
             }
 
@@ -89,10 +80,10 @@ namespace Breeze.Services.Account
                 Token = _tokenService.CreateToken(user)
             };
 
-             return GenericResponse<UserResponseDto>.Success(response, ApiResponseMessages.SUCCESSFULLY_LOGIN, ApiStatusCodes.SUCCESSFULLY_LOGIN);
+            return response;
         }
 
-        private bool UserExist(string userName)
+        public bool UserExist(string userName)
         {
             DynamicParameters parameters = new();
             parameters.Add("@Username", userName, DbType.String, direction: ParameterDirection.Input);
